@@ -68,8 +68,9 @@ class worldGenerator:
                     ch = 50
 
                 spawnTree = random.randint(0, ch) == 20 and y > sy - 5
-
-                self.add((x, y, z), activeBiome.getBiomeGrass())
+                af = activeBiome.getBiomeGrass()
+                print(af)
+                self.add((x, y, z), af)
                 if self.gl.startPlayerPos == [0, -9000, 0] and not spawnTree:
                     self.gl.startPlayerPos = [x, y + 2, z]
                     self.gl.player.position = [x, y + 2, z]
@@ -83,9 +84,12 @@ class worldGenerator:
                 for i in range(1, y):
                     if i > y - random.randint(5, 10):
                         self.add((x, i, z), activeBiome.getBiomeDirt())
+                        af = activeBiome.getBiomePlant()
+                        if af == "cactus":
+                            self.add((x, i - 1, z), "cactus")
+                            self.add((x, i - 2, z), "cactus")
                     else:
                         self.add((x, i, z), activeBiome.getBiomeStone())
-                    if i < sy - 20:
                         self.genOre(x, i, z)
 
     def genOre(self, x, y, z):

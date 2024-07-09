@@ -42,6 +42,7 @@ def log_deb(msg):
     logging.debug(msg)
     print(msg)
 
+
 def choose_langs():
     global lang_choose, mainFunction
     with open("gui/lang.mclanguage", "w") as mclanguagefile:
@@ -138,7 +139,7 @@ def start_new_game():
     global mainFunction
     if not os.path.exists("saves/Current_world"):
         os.makedirs("saves/Current_world")
-    
+
     sound.musicPlayer.stop()
     sound.initMusic(True)
     scene.worldGen = worldGenerator(scene, translateSeed(seedEditArea.text))
@@ -824,16 +825,17 @@ while True:
         gui.update()
 
         if showInfoLabel:
-            drawInfoLabel(scene, f"Minecraft {MC_VERSION} ({MC_VERSION}/vanilla)\n"
-                                 f"s fps\n"
-                                 f"XYZ: {round(player.x(), 3)} / {round(player.y(), 5)} / {round(player.z(), 3)}\n"
-                                 f"Block: {round(player.x())} / {round(player.y())} / {round(player.z())}\n"
-                                 f"Facing: {player.rotation[1]} / {player.rotation[0]}\n"
-                                 f"Biome: {getBiomeByTemp(scene.worldGen.perlinBiomes(player.x(), player.z()) * 3)}\n"
-                                 f"Looking at: {scene.lookingAt}\n"
-                                 f"Count of chunks: {scene.worldGen.start - len(scene.worldGen.queue)} "
-                                 f"({scene.worldGen.start})",
-                          shadow=False, label_color=(224, 224, 224), xx=3,yy=100)
+            infolbl = drawInfoLabel(scene, f"Minecraft {MC_VERSION} ({MC_VERSION}/vanilla)\n"
+                                           f"s fps\n"
+                                           f"XYZ: {round(player.x(), 3)} / {round(player.y(), 5)} / {round(player.z(), 3)}\n"
+                                           f"Block: {round(player.x())} / {round(player.y())} / {round(player.z())}\n"
+                                           f"Facing: {player.rotation[1]} / {player.rotation[0]}\n"
+                                           f"Biome: {getBiomeByTemp(scene.worldGen.perlinBiomes(player.x(), player.z()) * 3)}\n"
+                                           f"Looking at: {scene.lookingAt}\n"
+                                           f"Count of chunks: {scene.worldGen.start - len(scene.worldGen.queue)} "
+                                           f"({scene.worldGen.start})",
+                                    shadow=False, label_color=(224, 224, 224), xx=scene.WIDTH // 2, yy=scene.HEIGHT // 2,
+                  style=[('', '')], size=12, anchor_x='center')
         pygame.display.flip()
         # clock.tick(MAX_FPS)
     elif PAUSE and not IN_MENU:
